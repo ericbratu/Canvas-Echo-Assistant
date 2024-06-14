@@ -2,9 +2,9 @@ import requests
 import json
 from datetime import datetime, timedelta
 
-headers = {"Authorization": "Bearer " + "<INPUT CANVAS API KEY HERE>"}
+headers = {"Authorization": "Bearer " + "<INPUT CANVAS API KEY HERE!>"}
 
-response = requests.get('<INPUT URL REQUEST HERE>', headers=headers)
+response = requests.get('<INPUT URL REQUEST HERE!>', headers=headers)
 
 # Parse the JSON response
 assignments = response.json()
