@@ -1,37 +1,46 @@
+#CODE WORKS WHEN PLUGGED INTO AMAZON DEVELOPER CONSOLE
+
 import requests
-import json
 from datetime import datetime, timedelta
 
-
-headers = {"Authorization": "Bearer " + "<INPUT CANVAS API KEY HERE!>"}
-
+headers = {
+    "Authorization": "Bearer " + "<INSERT YOUR API KEY HERE>"
+}
 
 # Now can handle multiple classes :D
 class_urls = [
-    ('<INPUT URL REQUEST FOR GET A SINGLE COURSE UNDER COURSES CATEGORY HERE!>', '<INPUT URL REQUEST FOR LIST ASSIGNMENTS FOR USER UNDER ASSIGNMENTS CATEGORY HERE!>'),
-    ('<INPUT URL REQUEST FOR GET A SINGLE COURSE UNDER COURSES CATEGORY HERE!>', '<INPUT URL REQUEST FOR LIST ASSIGNMENTS FOR USER UNDER ASSIGNMENTS CATEGORY HERE!>')
+    ('<INPUT URL REQUEST FOR GET A SINGLE COURSE FOR CLASS 1 UNDER COURSES CATEGORY HERE!>', '<INPUT URL REQUEST FOR LIST ASSIGNMENTS FOR USER FOR CLASS 1 UNDER ASSIGNMENTS CATEGORY HERE!>'),
+    ('<INPUT URL REQUEST FOR GET A SINGLE COURSE FOR CLASS 2 UNDER COURSES CATEGORY HERE!>', '<INPUT URL REQUEST FOR LIST ASSIGNMENTS FOR USER FOR CLASS 2 UNDER ASSIGNMENTS CATEGORY HERE!>')
+    #REPEAT FOR ALL CLASSES
 ]
 
+def get_assignments_due_today():
+    today_date_str = datetime.now().strftime('%m-%d-%Y')
+    today_date_obj = datetime.now().date()
+    assignments_due_today = []
 
-for class_info_url, class_assments_url in class_urls:
-    # Now broader instead of specific to each class. Retrieves class info and respective assignments
-    class_info = requests.get(class_info_url, headers=headers).json()
-    class_assments = requests.get(class_assments_url, headers=headers).json()
+    for class_info_url, class_assignments_url in class_urls:
+        # Now broader instead of specific to each class.
+        class_info_response = requests.get(class_info_url, headers=headers)
+        class_info = class_info_response.json()
 
+        # Retrieves class info and respective assignments
+        class_assignments_response = requests.get(class_assignments_url, headers=headers)
+        class_assignments = class_assignments_response.json()
 
-    # Extract the class code from class info
-    course_code = class_info.get('course_code')
+        # Extract the class code from class info
+        course_code = class_info.get('course_code')
 
+        for assignment in class_assignments:
+            due_date = assignment.get('due_at')
+            if due_date:
+                due_date_obj = datetime.strptime(due_date.split('T')[0], '%Y-%m-%d').date()
+                adjusted_due_date = due_date_obj - timedelta(days=1)
+                #print(f"Found assignment: {assignment.get('name')} due on {adjusted_due_date}") AKA TESTING STATEMEMNT
+                if adjusted_due_date == today_date_obj:
+                    assignments_due_today.append({
+                        'name': assignment.get('name', 'Unnamed Assignment'),
+                        'course_code': course_code
+                    })
 
-    # Print the course code
-    print(f"{course_code}:")
-
-
-# Extract, adjust, and print 'due_at' values with associated assignment title
-    for assignment in class_assments:
-        if 'due_at' in assignment:
-            due_at_str = assignment['due_at'][:10]
-            due_at_date = datetime.strptime(due_at_str, '%Y-%m-%d')
-            adjusted_date = due_at_date - timedelta(days=1)  # Date naturally output is wrong by +1 day for some reason, just subtracting one day to get correct due date
-            print(f"{assignment['name']}:\n{adjusted_date.strftime('%m-%d-%Y')}\n")
-
+    return assignments_due_today
