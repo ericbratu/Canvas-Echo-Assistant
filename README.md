@@ -13,7 +13,6 @@ Before we do anything, use [pip](https://pip.pypa.io/en/stable/) to install [req
 pip install requests
 ```
 
-All the files you need for this setup can be found at my [Github repo](https://github.com/ericbratu/AmazonEchoCanvasReader)
 
 To avoid making this readme super lengthy, I recorded a video tutorial you can watch [here]() that has all the rest of the steps you need to set this up!
 
