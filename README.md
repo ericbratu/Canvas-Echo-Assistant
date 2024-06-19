@@ -1,4 +1,4 @@
-#![Logo](https://github.com/ericbratu/AmazonEchoCanvasReader/blob/main/ReadMeHeader.png)
+## ![Logo](https://github.com/ericbratu/AmazonEchoCanvasReader/blob/main/ReadMeHeader.png)
 
 As of August 2021, students are no longer able to link their Canvas profile to their Amazon Echo to ask their Echo questions regarding their Canvas schedule. 
 
