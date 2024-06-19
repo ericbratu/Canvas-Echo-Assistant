@@ -51,7 +51,7 @@ I plan to periodically release new features over the near future, and I hope to 
 The next few things I plan on implementing are:
 * The ability to ask all assignments due by the end of the week
 * The ability to ask the *number* of assignments due
-* The ability to ask the weighting (or total number of points) the assignment has
+* The ability to ask the weighting (or total number of points) an assignment has
 
 ## 🔗 My Links
 
