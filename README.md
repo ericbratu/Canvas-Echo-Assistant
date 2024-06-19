@@ -42,6 +42,17 @@ To avoid making this readme super lengthy, I recorded a video tutorial you can w
 
 2. Then, you can invoke the skill with the wake word and your invocation name: "Alexa, open Unofficial Canvas."
 
+## What's in Store
+
+As it stands, the only thing this skill is able to do for you is tell you what assignments are due on the current day.
+
+I plan to periodically release new features over the near future, and I hope to remain in active development for the foreseeable future.
+
+The next few things I plan on implementing are:
+* The ability to ask all assignments due by the end of the week
+* The ability to ask the *number* of assignments due
+* The ability to ask the weighting (or total number of points) the assignment has
+
 ## 🔗 My Links
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ericbratu/)
