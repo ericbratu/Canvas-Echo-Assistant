@@ -1,4 +1,5 @@
-## ![Logo](https://github.com/ericbratu/AmazonEchoCanvasReader/blob/main/ReadMeHeader.png)
+![Logo](https://github.com/ericbratu/AmazonEchoCanvasReader/blob/main/ReadMeHeader.png)
+# Amazon Echo Canvas Assistant
 
 As of August 2021, students are no longer able to link their Canvas profile to their Amazon Echo to ask their Echo questions regarding their Canvas schedule. 
 
@@ -18,18 +19,27 @@ To avoid making this readme super lengthy, I recorded a video tutorial you can w
 
 ## Usage
 
-```python
-import foobar
+**To use your skill in the Alexa app:**
 
-# returns 'words'
-foobar.pluralize('word')
+1. Sign in to the Alexa app with the same credentials as your developer account.
 
-# returns 'geese'
-foobar.pluralize('goose')
+2. To find your skill in the Alexa app, tap More, and then tap Skills & Games.
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
-```
+3. In Skills & Games, tap Your Skills.
+
+4. Scroll the skill types to the right, and then tap Dev.
+
+5. Scroll to find your skill.
+
+6. Tap on your skill name, and then tap ENABLE TO USE.
+
+7. If your skill uses account linking, follow the prompts to enter your credentials for your cloud account. To allow access to the skill, tap Allow, and then tap CLOSE.
+
+**To use your skill on your Alexa Device:**
+
+1. Register the device with the same email address that you used to sign up for your developer account on the Amazon developer portal. Make sure that the locale of your device matches at least one of the locales available for your skill.
+
+2. Then, you can invoke the skill with the wake word and your invocation name: "Alexa, open Unofficial Canvas."
 
 ## 🔗 My Links
 
