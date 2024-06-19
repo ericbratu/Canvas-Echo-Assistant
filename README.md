@@ -40,7 +40,7 @@ To avoid making this readme super lengthy, I recorded a video tutorial you can w
 
 1. Register the device with the same email address that you used to sign up for your developer account on the Amazon developer portal. Make sure that the locale of your device matches at least one of the locales available for your skill.
 
-2. Then, you can invoke the skill with the wake word and your invocation name: "Alexa, open Unofficial Canvas."
+2. Then, you can invoke the skill with the wake word and the invocation name: "Alexa, open Unofficial Canvas."
 
 ## What's in Store
 
