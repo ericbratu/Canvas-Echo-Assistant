@@ -3,7 +3,7 @@
 
 As of August 2021, students are no longer able to link their Canvas profile to their Amazon Echo to ask their Echo questions regarding their Canvas schedule. 
 
-Therefore, I created an Echo "skill" that students can utilize to ask their Echo certain questions regarding their Canvas!
+Therefore, I created this **UNOFFICIAL** Canvas Echo "skill" that students can utilize to ask their Echo certain questions regarding their Canvas!
 
 ## Setup
 
