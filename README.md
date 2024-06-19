@@ -5,7 +5,7 @@ As of August 2021, students are no longer able to link their Canvas profile to t
 
 Therefore, I created this Echo "skill" that students can utilize to ask their Echo certain questions regarding their Canvas!
 
-This is an **UNOFFICIAL** Canvas Skill, meaning I am in no way affiliated with Canvas or any Instructure affiliated projects. I made this simply just for myself and figured I'd put it out there for others to use if they'd like.
+This is an **UNOFFICIAL** Canvas Skill, meaning I am in no way affiliated with Canvas or any Instructure projects. I made this simply just for myself and figured I'd put it out there for others to use if they'd like.
 
 ## Setup
 
