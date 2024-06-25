@@ -16,7 +16,7 @@ pip install requests
 ```
 
 
-To avoid making this readme super lengthy, I recorded a video tutorial you can watch [here]() that has all the rest of the steps you need to set this up!
+To avoid making this readme super lengthy, I recorded a video tutorial you can watch [here](https://www.youtube.com/watch?v=1yyyXYrEaXQ) that has all the rest of the steps you need to set this up!
 
 ## Usage
 
