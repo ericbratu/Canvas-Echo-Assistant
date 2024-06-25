@@ -49,8 +49,8 @@ As it stands, the only thing this skill is able to do for you is tell you what a
 I plan to periodically release new features over the near future, and I hope to remain in active development for the foreseeable future.
 
 The next few things I plan on implementing are:
+* Cleaning up the output for asking what assignments are due today
 * The ability to ask all assignments due by the end of the week
-* The ability to ask the *number* of assignments due
 * The ability to ask the weighting (or total number of points) an assignment has
 
 ## 🔗 My Links
