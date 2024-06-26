@@ -53,6 +53,8 @@ The next few things I plan on implementing are:
 * The ability to ask all assignments due by the end of the week
 * The ability to ask the weighting (or total number of points) an assignment has
 
+Unfortunately, I am not sure I will ever be able to use OAuth 2.0 to make login/setup easier, as I would need a developer key to do so. I don't have access to developer keys due to the nature of my Canvas account since I am student of an institution that uses Canvas Cloud, meaning I would need to get issued a developer key by the admin of my institution. I frankly don't deem that a possibility anytime soon, so the initial setup steps will remain the same until further notice, and changes to the program will have to be copied manually into the Alexa Dev Console.
+
 ## 🔗 My Links
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ericbratu/)
