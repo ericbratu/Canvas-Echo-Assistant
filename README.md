@@ -62,5 +62,3 @@ Unfortunately, I am not sure I will ever be able to use OAuth 2.0 to make login/
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
-

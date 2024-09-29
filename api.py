@@ -1,46 +1,52 @@
-#CODE WORKS WHEN PLUGGED INTO AMAZON DEVELOPER CONSOLE
-
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime
+import pytz  # For timezone handling
 
+# Authorization header
 headers = {
     "Authorization": "Bearer " + "<INSERT YOUR API KEY HERE>"
 }
 
-# Now can handle multiple classes :D
+# List of courses and their assignments API URLs
 class_urls = [
     ('<INPUT URL REQUEST FOR GET A SINGLE COURSE FOR CLASS 1 UNDER COURSES CATEGORY HERE!>', '<INPUT URL REQUEST FOR LIST ASSIGNMENTS FOR USER FOR CLASS 1 UNDER ASSIGNMENTS CATEGORY HERE!>'),
     ('<INPUT URL REQUEST FOR GET A SINGLE COURSE FOR CLASS 2 UNDER COURSES CATEGORY HERE!>', '<INPUT URL REQUEST FOR LIST ASSIGNMENTS FOR USER FOR CLASS 2 UNDER ASSIGNMENTS CATEGORY HERE!>')
-    #REPEAT FOR ALL CLASSES
 ]
 
-def get_assignments_due_today():
-    today_date_str = datetime.now().strftime('%m-%d-%Y')
-    today_date_obj = datetime.now().date()
+def get_assignments_due_today(user_timezone_str='America/New_York'):
+    # Get the current date in the user's timezone
+    user_timezone = pytz.timezone(user_timezone_str)
+    today_date_obj = datetime.now(user_timezone).date()
+
     assignments_due_today = []
 
     for class_info_url, class_assignments_url in class_urls:
-        # Now broader instead of specific to each class.
+        # Fetch class info and assignments
         class_info_response = requests.get(class_info_url, headers=headers)
         class_info = class_info_response.json()
 
-        # Retrieves class info and respective assignments
         class_assignments_response = requests.get(class_assignments_url, headers=headers)
         class_assignments = class_assignments_response.json()
 
-        # Extract the class code from class info
-        course_code = class_info.get('course_code')
+        # Extract course code
+        course_code = class_info.get('course_code', 'Unknown Course')
 
         for assignment in class_assignments:
             due_date = assignment.get('due_at')
             if due_date:
-                due_date_obj = datetime.strptime(due_date.split('T')[0], '%Y-%m-%d').date()
-                adjusted_due_date = due_date_obj - timedelta(days=1)
-                #print(f"Found assignment: {assignment.get('name')} due on {adjusted_due_date}") AKA TESTING STATEMEMNT
-                if adjusted_due_date == today_date_obj:
+                # Convert the due date from UTC to the user's local timezone
+                utc_due_date = datetime.strptime(due_date, '%Y-%m-%dT%H:%M:%SZ')
+                utc_due_date = utc_due_date.replace(tzinfo=pytz.UTC)
+                # Convert to local time
+                local_due_date = utc_due_date.astimezone(user_timezone).date()
+                # Check if the assignment is due today in the user's local time
+                if local_due_date == today_date_obj:
                     assignments_due_today.append({
                         'name': assignment.get('name', 'Unnamed Assignment'),
                         'course_code': course_code
                     })
 
+    # Return the assignments that are due today
     return assignments_due_today
+    
+    

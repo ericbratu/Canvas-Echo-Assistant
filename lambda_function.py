@@ -18,6 +18,8 @@ from api import get_assignments_due_today
 import requests
 import json
 from datetime import datetime, timedelta
+import pytz
+
 
 from ask_sdk_model import Response
 
@@ -25,16 +27,17 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 
+USER_TIMEZONE = 'America/New_York'
+
 class LaunchRequestHandler(AbstractRequestHandler):
     """Handler for Skill Launch."""
     def can_handle(self, handler_input):
         # type: (HandlerInput) -> bool
-
         return ask_utils.is_request_type("LaunchRequest")(handler_input)
 
     def handle(self, handler_input):
         # type: (HandlerInput) -> Response
-        speak_output = "Opened"
+        speak_output = "Welcome! You can ask me about today's assignments."
 
         return (
             handler_input.response_builder
@@ -42,66 +45,39 @@ class LaunchRequestHandler(AbstractRequestHandler):
                 .ask(speak_output)
                 .response
         )
-
 
 class CanvasAssistantIntentHandler(AbstractRequestHandler):
-    
+    """Handler for the custom CanvasClassStuffIntent intent"""
     def can_handle(self, handler_input):
-        # type: (HandlerInput, Exception) -> bool
+        # type: (HandlerInput) -> bool
         return ask_utils.is_intent_name("CanvasClassStuffIntent")(handler_input)
-        
-        
+
     def handle(self, handler_input):
-        assignments_today = get_assignments_due_today()
-        
+        # Get the current date in the user's timezone
+        user_timezone = pytz.timezone(USER_TIMEZONE)
+        current_date = datetime.now(user_timezone).strftime('%m-%d-%Y')
+
+        # Get assignments due today
+        assignments_today = get_assignments_due_today(user_timezone_str=USER_TIMEZONE)
+
+        # Prepare the output for Alexa response
         if not assignments_today:
-            speak_output = f"You have no assignments due today, {datetime.now().strftime('%m-%d-%Y')}"
+            speak_output = f"You have no assignments due today, {current_date}."
         else:
-            speak_output = f"Today, on {datetime.now().strftime('%m-%d-%Y')}, {assignment['name']} in class {assignment['course_code']} is due."
+            assignment_details = []
+            for assignment in assignments_today:
+                assignment_details.append(f"{assignment['name']} in class {assignment['course_code']}")
+            assignment_list_str = ", ".join(assignment_details)
+            speak_output = f"Today, {current_date}, you have the following assignments due: {assignment_list_str}."
 
         return (
             handler_input.response_builder
                 .speak(speak_output)
-                # .ask("add a reprompt if you want to keep the session open for the user to respond")
                 .response
         )
 
 
 
-class HelloWorldIntentHandler(AbstractRequestHandler):
-    """Handler for Hello World Intent."""
-    def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("HelloWorldIntent")(handler_input)
-
-    def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
-        speak_output = "Hello World!"
-
-        return (
-            handler_input.response_builder
-                .speak(speak_output)
-                # .ask("add a reprompt if you want to keep the session open for the user to respond")
-                .response
-        )
-
-
-class HelpIntentHandler(AbstractRequestHandler):
-    """Handler for Help Intent."""
-    def can_handle(self, handler_input):
-        # type: (HandlerInput) -> bool
-        return ask_utils.is_intent_name("AMAZON.HelpIntent")(handler_input)
-
-    def handle(self, handler_input):
-        # type: (HandlerInput) -> Response
-        speak_output = "You can say hello to me! How can I help?"
-
-        return (
-            handler_input.response_builder
-                .speak(speak_output)
-                .ask(speak_output)
-                .response
-        )
 
 
 class CancelOrStopIntentHandler(AbstractRequestHandler):
@@ -202,8 +178,6 @@ class CatchAllExceptionHandler(AbstractExceptionHandler):
 sb = SkillBuilder()
 
 sb.add_request_handler(LaunchRequestHandler())
-sb.add_request_handler(HelloWorldIntentHandler())
-sb.add_request_handler(HelpIntentHandler())
 sb.add_request_handler(CanvasAssistantIntentHandler())
 sb.add_request_handler(CancelOrStopIntentHandler())
 sb.add_request_handler(FallbackIntentHandler())
@@ -213,3 +187,4 @@ sb.add_request_handler(IntentReflectorHandler()) # make sure IntentReflectorHand
 sb.add_exception_handler(CatchAllExceptionHandler())
 
 lambda_handler = sb.lambda_handler()
+
